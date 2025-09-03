@@ -1,11 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
-    // يخلي Vercel يتجاهل أخطاء ESLint أثناء الـ build
     ignoreDuringBuilds: true,
   },
   typescript: {
-    // يخلي Vercel يتجاهل أخطاء TypeScript أثناء الـ build
     ignoreBuildErrors: true,
   },
   images: {
@@ -18,4 +16,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
