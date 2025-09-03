@@ -1,10 +1,7 @@
 "use server";
 
 import { getServerToken } from "@/lib/utils/get-token";
-import { signOut } from "next-auth/react";
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 const API_BASE = "https://exam.elevateegy.com/api/v1";
 

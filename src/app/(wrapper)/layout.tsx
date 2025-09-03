@@ -11,7 +11,7 @@ import { Toaster } from "sonner";
 
 // import ArrowBack from "@/components/arrow-back";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-heading" });
+// const inter = Inter({ subsets: ["latin"], variable: "--font-heading" });
 
 export const metadata = {
   title: "Exam App",

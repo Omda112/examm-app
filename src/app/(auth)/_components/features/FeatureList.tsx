@@ -1,5 +1,5 @@
 import FeatureItem from "./FeatureItem";
-import { FolderCode, BookOpen, FileText, Brain, BookOpenCheck, RectangleEllipsis } from "lucide-react";
+import {  Brain, BookOpenCheck, RectangleEllipsis } from "lucide-react";
 
 export default function FeatureList() {
   return (

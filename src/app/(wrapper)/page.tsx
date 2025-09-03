@@ -7,7 +7,7 @@ import HeaderBar from "@/components/header-bar";
 
 export default async function Home() {
 
-  const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+  // const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
   const cookieHeader = cookies().getAll().map(c => `${c.name}=${c.value}`).join("; ");
   const res = await fetch("http://localhost:3000/api/subjects", {
     headers: { Cookie: cookieHeader },

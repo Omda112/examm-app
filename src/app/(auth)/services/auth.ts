@@ -11,7 +11,7 @@ import {
 const API_BASE = "https://exam.elevateegy.com/api/v1";
 
 async function callApi(path: string, method: "POST" | "PUT" | "DELETE" | "PATCH", body?: any) {
-  const token = await getServerToken();
+  // const token = await getServerToken();
   try {
     const res = await fetch(`${API_BASE}${path}`, {
       method,
