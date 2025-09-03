@@ -51,9 +51,12 @@ export default function LoginForm() {
     }
   }
 
-  return (
-    <div className="flex items-center justify-center md:min-h-screen bg-red-500">
-      <h1>التعديل</h1>
+  return <>
+   <div>
+      <h1 className="text-4xl">يابن الفاااااااااجر</h1>
+    </div>
+    <div className="flex items-center justify-center md:min-h-screen">
+      
       <Card className="w-full border-none max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl font-heading font-bold">Login</CardTitle>
@@ -157,5 +160,7 @@ export default function LoginForm() {
         </Form>
       </Card>
     </div>
-  )
+  </>
+   
+
 }
