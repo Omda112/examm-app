@@ -4,7 +4,7 @@ import AccountSettingsPage from "./_components/profile-foem";
 
 export default function Page() {
   return (
-    <Suspense>
+    <Suspense fallback={null}>
         <AccountSettingsPage />
     </Suspense>
   )
