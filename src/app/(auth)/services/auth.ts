@@ -3,6 +3,11 @@ import { getServerToken } from "@/lib/utils/get-token";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import {
+  ForgotPasswordValues,
+  registerSchema,
+  RegisterValues,
+} from "@/lib/schemas/auth"
 
 const API_BASE = "https://exam.elevateegy.com/api/v1";
 
@@ -29,45 +34,74 @@ async function callApi(path: string, method: "POST" | "PUT" | "DELETE" | "PATCH"
   }
 }
 
-export async function createAccountAction(formData: FormData) {
-  const payload = {
-    firstName: String(formData.get("firstName") || ""),
-    lastName: String(formData.get("lastName") || ""),
-    username: String(formData.get("username") || ""),
-    email: String(formData.get("email") || ""),
-    phone: String(formData.get("phone") || ""),
-    password: String(formData.get("password") || ""),
-    rePassword: String(formData.get("rePassword") || ""),
-  };
+export async function createAccountAction(values: RegisterValues) {
+  console.log("createAccountAction", values)
 
-  const res = await callApi("/auth/signup", "POST", payload);
-  if (res.ok) {
-    // بعد إنشاء الحساب نوجهه للصفحة الرئيسية أو لوجين
-    redirect("/login");
+  const parsed = registerSchema.safeParse(values)
+  if (!parsed.success) {
+    return { ok: false, message: "Validation failed", errors: parsed.error }
   }
-  return res;
+
+  const payload = {
+    firstName: values.firstName,
+    lastName: values.lastName,
+    username: values.username,
+    email: values.email,
+    phone: `${values.phone}`,
+    password: values.password,
+    rePassword: values.confirmPassword,
+  }
+
+  const res = await callApi("/auth/signup", "POST", payload)
+  console.log("createAccountAction-res", res)
+
+  if (res.ok) {
+    redirect("/login")
+  }
+  return res
 }
 
-export async function forgetPasswordAction(formData: FormData) {
-    console.log("forgetPasswordAction", Object.fromEntries(formData.entries()));
-    const email = String(formData.get("email") || "").trim();
-    const payload = { email };
+// export async function forgetPasswordAction(formData: FormData) {
+//     console.log("forgetPasswordAction", Object.fromEntries(formData.entries()));
+//     const email = String(formData.get("email") || "").trim();
+//     const payload = { email };
   
-    const res = await callApi("/auth/forgotPassword", "POST", payload);
-    console.log("forgetPasswordAction-res", res);
+//     const res = await callApi("/auth/forgotPassword", "POST", payload);
+//     console.log("forgetPasswordAction-res", res);
   
-    if (res.ok) {
-      // خزّن الإيميل 10 دقايق
-      cookies().set("reset_email", email, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "lax",
-        path: "/",
-      });
-      redirect("/otp");
-    }
-    return res;
+//     if (res.ok) {
+
+//       cookies().set("reset_email", email, {
+//         httpOnly: true,
+//         secure: true,
+//         sameSite: "lax",
+//         path: "/",
+//       });
+//       redirect("/otp");
+//     }
+//     return res;
+//   }
+
+export async function forgetPasswordAction(values: ForgotPasswordValues) {
+  console.log("forgetPasswordAction", values)
+
+  const email = String(values.email || "").trim()
+  const payload = { email }
+
+  const res = await callApi("/auth/forgotPassword", "POST", payload)
+  console.log("forgetPasswordAction-res", res)
+
+  if (res.ok) {
+    cookies().set("reset_email", email, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+      path: "/",
+    })
+    redirect("/otp")
   }
+  return res
+}
 
 export async function verifyResetCodeAction(formData: FormData) {
     console.log("verifyResetCodeAction",Object.fromEntries(formData.entries()));
