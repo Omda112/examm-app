@@ -44,10 +44,6 @@ export default function LoginForm() {
       redirect: false,
     })
 
-    // if (response?.error) {
-    //   setFormError(response.error)
-    //   return
-    // }
 
     if (response?.ok) {
       location.href = callbackUrl
