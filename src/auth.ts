@@ -30,7 +30,6 @@ export const authOptions: NextAuthOptions = {
           const payload: ApiResponse<LoginResponse> = await response.json();
       
           if ("code" in payload) {
-            // بدل throw → رجّع null
             return null;
           }
       
