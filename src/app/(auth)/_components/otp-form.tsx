@@ -14,8 +14,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { resendCodeAction, verifyResetCodeAction } from "../services/auth"
 import Link from "next/link"
-import { ArrowLeft, ChevronLeft } from "lucide-react"  
-
 export default function OtpPage() {
   const [key, setKey] = useState(0)
   const [showResend, setShowResend] = useState(false)

@@ -4,9 +4,6 @@ import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import {
   ChevronLeft,
   ChevronRight,
-  HelpCircle,
-  RefreshCcw,
-  FolderOpen,
 } from "lucide-react";
 
 // shadcn/ui
@@ -27,7 +24,6 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import TimerCircle from "@/components/quiz/time-circle";
-import ResultsDonut from "@/components/quiz/result-donut";
 import ResultsView from "@/components/quiz/result-view";
 
 /* ================= Types ================= */

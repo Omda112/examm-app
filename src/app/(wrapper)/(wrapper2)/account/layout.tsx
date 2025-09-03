@@ -1,9 +1,8 @@
 // app/account/layout.tsx
 import type { ReactNode } from "react";
 import { AccountInnerSidebar } from "./_components/account-sidebar"; 
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, User, UserRound } from "lucide-react";
-import Link from "next/link";
+import {  UserRound } from "lucide-react";
+
 import HeaderBar from "@/components/header-bar";
 
 export default function AccountLayout({ children }: { children: ReactNode }) {

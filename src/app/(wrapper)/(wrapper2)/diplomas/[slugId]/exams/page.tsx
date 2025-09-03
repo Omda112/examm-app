@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
-import { ArrowLeft, Clock, GraduationCap } from "lucide-react";
+import { Clock, GraduationCap } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 // import ArrowBack from "@/components/arrow-back";
 import HeaderBar from "@/components/header-bar";
 import ArrowBack from "@/components/arrow-back";

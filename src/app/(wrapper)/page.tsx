@@ -1,17 +1,7 @@
-import { authOptions } from "@/auth";
+
 import { getServerToken } from "@/lib/utils/get-token";
-import { getServerSession } from "next-auth";
-import { getSession } from "next-auth/react";
-import Image from "next/image";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import DiplomaCard from "@/components/diplomas/diploma-card";
 import { cookies } from "next/headers";
-import { GraduationCap } from "lucide-react";
 import HeaderBar from "@/components/header-bar";
 
 
