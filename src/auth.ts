@@ -14,31 +14,36 @@ export const authOptions: NextAuthOptions = {
         email: {},
         password: {}, 
       },
-      authorize: async(credentials)=> {
-        console.log(credentials);
-        
-        const response = await fetch(process.env.SIGNIN_API!, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: credentials?.email,
-            password: credentials?.password,
-          }),
-        });
-        const payload:ApiResponse<LoginResponse> = await response.json();
-        
-        if('code' in payload){
-          throw new Error(payload.message);
+      authorize: async (credentials) => {
+        try {
+          const response = await fetch(process.env.SIGNIN_API!, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: credentials?.email,
+              password: credentials?.password,
+            }),
+          });
+      
+          const payload: ApiResponse<LoginResponse> = await response.json();
+      
+          if ("code" in payload) {
+            // بدل throw → رجّع null
+            return null;
+          }
+      
+          return {
+            id: payload.user._id,
+            accessToken: payload.token,
+            ...payload.user,
+          };
+        } catch (err) {
+          console.error("Authorize error:", err);
+          return null; // fallback safe
         }
-
-        return {
-          id: payload.user._id,
-          accessToken: payload.token,
-          ...payload.user,
-        };
-      },
+      },      
     }),
   ],
   session: {
