@@ -53,6 +53,7 @@ export default function LoginForm() {
 
   return (
     <div className="flex items-center justify-center md:min-h-screen">
+      <h1>التعديل</h1>
       <Card className="w-full border-none max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl font-heading font-bold">Login</CardTitle>
