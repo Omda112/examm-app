@@ -52,9 +52,9 @@ export default function LoginForm() {
   }
 
   return <>
-   <div>
+   {/* <div>
       <h1 className="text-4xl">يابن الفاااااااااجر</h1>
-    </div>
+    </div> */}
     <div className="flex items-center justify-center md:min-h-screen">
       
       <Card className="w-full border-none max-w-md">
