@@ -26,7 +26,7 @@ export default function AppSidebar() {
 
         <div className="p-5">
           <div className="flex flex-col gap-4">
-            <Image src="/final logo 1.svg" alt="Elevate" width={120} height={36} className="h-auto w-[120px]" priority />
+            <Image src="/final-logo-1.svg" alt="Elevate" width={120} height={36} className="h-auto w-[120px]" priority />
             <div className="flex items-center gap-2">
               <FolderCode className="h-8 w-8 text-blue-700" />
               <span className="text-sm font-semibold text-blue-700/80">Exam App</span>
