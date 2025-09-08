@@ -9,6 +9,9 @@ export default async function middleware(req: NextRequest) {
 
   const isAuthRoute = authRoutes.includes(pathname);
   const isHome = pathname === "/";
+  console.log("PATH:", pathname);
+  console.log("TOKEN:", token);
+  console.log("ENV NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
 
   // 1) لو معاك توكن وداخل على صفحة لوجين/ساين أب → رجعك للهوم
   if (isAuthRoute && token) {
