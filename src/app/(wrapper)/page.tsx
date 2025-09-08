@@ -3,7 +3,7 @@ import { getServerToken } from "@/lib/utils/get-token";
 import DiplomaCard from "@/components/diplomas/diploma-card";
 import { cookies } from "next/headers";
 import HeaderBar from "@/components/header-bar";
-import DiplomaCardsList from "@/components/diplomas/diploma-cards-list";
+// import DiplomaCardsList from "@/components/diplomas/diploma-cards-list";
 
 
 export default async function Home() {
@@ -41,8 +41,8 @@ export default async function Home() {
       <HeaderBar title="Diplomas" />
         <div className="mx-auto w-full py-0">
           <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <DiplomaCardsList />
-            {/* {diplomas.subjects.map(
+            {/* <DiplomaCardsList /> */}
+            {diplomas.subjects.map(
               (d: { _id: string; name: string; icon: string }) => {
                 const slug = slugify(d.name);
                 const href = `/diplomas/${slug}-${d._id}/exams`; 
@@ -58,7 +58,7 @@ export default async function Home() {
                   </>
                 );
               }
-            )} */}
+            )}
           </section>
         </div>
       </main>
