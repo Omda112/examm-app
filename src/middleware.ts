@@ -10,8 +10,8 @@ export default async function middleware(req: NextRequest) {
 
   const isAuthRoute = authRoutes.includes(pathname);
   const isHome = pathname === "/";
-  const isPublicRoute = isHome || isAuthRoute;     // الصفحات اللي تعتبر عامة (الهوم + صفحات اللوجين/ساين اب)
-  const isProtectedRoute = !isPublicRoute;         // أي حاجة غير كده تبقى محمية
+  const isPublicRoute = isAuthRoute;     
+  const isProtectedRoute = !isPublicRoute;       
 
   // 1) لو معاك توكن وداخل على صفحة من صفحات اللوجين/ساين اب → رجعك على الهوم
   if (isAuthRoute && token) {
