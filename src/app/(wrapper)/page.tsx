@@ -48,7 +48,6 @@ export default async function Home() {
                 const href = `/diplomas/${slug}-${d._id}/exams`; 
                 return (
                   <>
-                    
                     <DiplomaCard
                       key={d._id}
                       title={d.name}
