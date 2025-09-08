@@ -21,7 +21,6 @@ export default async function ExamsPage({ params }: { params: Params }) {
   if (!subjectId) return notFound();
 
   const baseUrl =
-
     process.env.NEXTAUTH_URL ||
     "http://localhost:3000";
 
