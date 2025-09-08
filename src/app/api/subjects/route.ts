@@ -1,22 +1,19 @@
-// app/api/subjects/route.ts
-// import { getToken } from "next-auth/jwt";
 import { getToken } from "next-auth/jwt";
-// import { getToken } from "@/lib/utils/get-token";
 import { NextRequest, NextResponse } from "next/server";
 
-
 export async function GET(req: NextRequest) {
-  // const token = await getToken();
-  const token = await getToken({req});
-  console.log("token in proxy:", token);
-  
+  const token = await getToken({ req });
   if (!token?.accessToken) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const upstream = await fetch("https://exam.elevateegy.com/api/v1/subjects", {
+  const page = req.nextUrl.searchParams.get("page") || "1";
+  const limit = req.nextUrl.searchParams.get("limit") || "6";
+
+  const upstreamUrl = `https://exam.elevateegy.com/api/v1/subjects?page=${page}&limit=${limit}`;
+
+  const upstream = await fetch(upstreamUrl, {
     headers: { token: `${token.accessToken}` },
-    cache: "no-store",
   });
 
   if (!upstream.ok) {

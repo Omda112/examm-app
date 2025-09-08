@@ -75,7 +75,6 @@ export default async function ExamsPage({ params }: { params: Params }) {
                   href={`/diplomas/${slugId}/exams/${ex._id}`}
                   className={[
                     "block rounded-md border transition",
-                    // صندوق فاتح مثل التصميم
                     "bg-[#EEF5FF] border-[#E5EEFF]",
                     "hover:bg-[#E1ECFF] hover:border-[#D6E5FF]",
                     "px-4 py-4",

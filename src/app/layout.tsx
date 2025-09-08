@@ -7,6 +7,7 @@ import TokenInitializer from "@/components/token-initializer";
 import { Inter } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
 import { Toaster } from "sonner";
+import QueryProvider from "@/context/query.provider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-heading" });
 
@@ -19,8 +20,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className={`${GeistMono?.variable ?? ""} ${inter?.variable ?? ""} font-sans`}>
         <TokenInitializer />  
-        <Toaster />
-        {children}           
+         <QueryProvider>
+          {children}
+        </QueryProvider>
+        <Toaster />         
       </body>
     </html>
   );

@@ -3,11 +3,12 @@ import { getServerToken } from "@/lib/utils/get-token";
 import DiplomaCard from "@/components/diplomas/diploma-card";
 import { cookies } from "next/headers";
 import HeaderBar from "@/components/header-bar";
+import DiplomaCardsList from "@/components/diplomas/diploma-cards-list";
 
 
 export default async function Home() {
 
-  // const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+  
   const cookieHeader = cookies().getAll().map(c => `${c.name}=${c.value}`).join("; ");
   const res = await fetch("http://localhost:3000/api/subjects", {
     headers: { Cookie: cookieHeader },
@@ -40,23 +41,30 @@ export default async function Home() {
       <HeaderBar title="Diplomas" />
         <div className="mx-auto w-full py-0">
           <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {diplomas.subjects.map(
+            <DiplomaCardsList />
+            {/* {diplomas.subjects.map(
               (d: { _id: string; name: string; icon: string }) => {
                 const slug = slugify(d.name);
                 const href = `/diplomas/${slug}-${d._id}/exams`; 
                 return (
-                  <DiplomaCard
-                    key={d._id}
-                    title={d.name}
-                    img={d.icon}
-                    href={href}
-                  />
+                  <>
+                    
+                    <DiplomaCard
+                      key={d._id}
+                      title={d.name}
+                      img={d.icon}
+                      href={href}
+                    />
+                  </>
                 );
               }
-            )}
+            )} */}
           </section>
         </div>
       </main>
     </div>
   );
 }
+          
+
+
