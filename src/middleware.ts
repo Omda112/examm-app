@@ -4,38 +4,31 @@ import { NextRequest, NextResponse } from "next/server";
 const authRoutes = ["/login", "/signup", "/forget-password", "/otp", "/create-pass"];
 
 export default async function middleware(req: NextRequest) {
-  const token = await getToken({ req });
-  const url = req.nextUrl;
-  const { pathname } = url;
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const { pathname, search } = req.nextUrl;
 
   const isAuthRoute = authRoutes.includes(pathname);
   const isHome = pathname === "/";
-  const isPublicRoute = isAuthRoute;     
-  const isProtectedRoute = !isPublicRoute;       
 
-  // 1) لو معاك توكن وداخل على صفحة من صفحات اللوجين/ساين اب → رجعك على الهوم
+  // 1) لو معاك توكن وداخل على صفحة لوجين/ساين أب → رجعك للهوم
   if (isAuthRoute && token) {
-    return NextResponse.redirect(new URL("/", url));
+    return NextResponse.redirect(new URL("/", req.url));
   }
 
-  // 2) لو انت على الهوم ومفيش توكن → ودّيك على صفحة اللوجين
+  // 2) لو انت على الهوم ومفيش توكن → روح لوجين
   if (isHome && !token) {
-    return NextResponse.redirect(new URL("/login", url));
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  // 3) لو صفحة محمية وانت مش لوجين → ودّيك على صفحة اللوجين مع حفظ الصفحة اللي كنت رايح لها
-  if (isProtectedRoute && !token) {
-    const loginUrl = new URL("/login", url);
-    // لو هو أصلاً /login ما تبعتش callbackUrl عشان ما يحصلش لوب
-    if (pathname !== "/login") {
-      // خد كمان أي query parameters موجودة
-      const fullPath = pathname + (url.search || "");
-      loginUrl.searchParams.set("callbackUrl", fullPath);
-    }
+  // 3) لو صفحة محمية وانت مش لوجين
+  if (!isAuthRoute && !token) {
+    const loginUrl = new URL("/login", req.url);
+    // رجع معاه الصفحة اللي كان عايز يروح لها
+    const fullPath = pathname + search;
+    loginUrl.searchParams.set("callbackUrl", fullPath);
     return NextResponse.redirect(loginUrl);
   }
 
-  // 4) غير كده → سيبه يعدي عادي
   return NextResponse.next();
 }
 
