@@ -21,8 +21,8 @@ export default async function ExamsPage({ params }: { params: Params }) {
   if (!subjectId) return notFound();
 
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    process.env.NEXTAUTH_URL ??
+
+    process.env.NEXTAUTH_URL ||
     "http://localhost:3000";
 
   const cookieHeader = cookies()

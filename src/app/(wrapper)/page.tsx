@@ -8,19 +8,6 @@ import DiplomaCardsList from "@/components/diplomas/diploma-cards-list";
 
 export default async function Home() {
 
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    process.env.NEXTAUTH_URL ??
-    "http://localhost:3000";
-
-  const cookieHeader = cookies().getAll().map(c => `${c.name}=${c.value}`).join("; ");
-  const res = await fetch(`${baseUrl}/api/subjects`, {
-    headers: { Cookie: cookieHeader },
-    cache: "no-store",
-  });
-  const diplomas = await res.json();
-  console.log(diplomas);
-  
   const token = await getServerToken();
   console.log("token from page.tsx", token);
   
