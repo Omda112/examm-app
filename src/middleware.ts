@@ -12,7 +12,8 @@ export default async function middleware(req: NextRequest) {
   console.log("PATH:", pathname);
   console.log("TOKEN:", token);
   console.log("ENV NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
-
+  console.log("COOKIES:", req.cookies.getAll());
+  
   // 1) لو معاك توكن وداخل على صفحة لوجين/ساين أب → رجعك للهو
   if (isAuthRoute && token) {
     return NextResponse.redirect(new URL("/", req.url));
