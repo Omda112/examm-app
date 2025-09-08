@@ -31,7 +31,6 @@ export default async function ExamsPage({ params }: { params: Params }) {
 
   const res = await fetch(`${baseUrl}/api/exams?subjectId=${subjectId}`, {
     headers: { Cookie: cookieHeader },
-    cache: "no-store",
   });
 
   if (!res.ok) {
