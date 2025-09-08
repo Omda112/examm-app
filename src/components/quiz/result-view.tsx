@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, HelpCircle, RefreshCcw, FolderOpen } from "lucide-react";
+import { RefreshCcw, FolderOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import ResultsDonut from "./result-donut";
@@ -37,7 +37,6 @@ export default function ResultsView({
   picked,
   correctCount,
   incorrectCount,
-  onBack,
   onRestart,
   onExplore,
 }: ResultsViewProps) {

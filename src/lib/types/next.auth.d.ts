@@ -1,5 +1,5 @@
 // الفايل اللي هعمل فيه ديكلريشن للتايب اسكريبت بتاع ال next-auth عشان اقدر اتعامل مع الداتا اللي مش موجودة فيها زي first name , last name
-import NextAuth, { User } from "next-auth"
+import { User } from "next-auth"
 
 declare module "next-auth" {
 
