@@ -281,13 +281,13 @@ export default function QuestionsRunner({
             className="space-y-3"
           >
             {q.answers.map((a) => {
-              const id = `${q._id}-${a.key}`; // id ثابت
+              const id = `${q._id}-${a.key}`;
               const checked = picked[q._id] === a.key;
               return (
                 <div
                   key={a.key}
-                  className={`flex items-center gap-3 rounded border px-3 py-3 ${
-                    checked ? "bg-blue-50 border-blue-400" : "bg-muted/40 border-border"
+                  className={`flex items-center gap-3 rounded px-3 py-3 ${
+                    checked ? "bg-blue-50" : "bg-gray-50"
                   } ${isExpired ? "opacity-60" : ""}`}
                 >
                   <RadioGroupItem id={id} value={a.key} />
@@ -301,7 +301,7 @@ export default function QuestionsRunner({
 
     
           <div className="flex items-center gap-3 mt-8">
-            <Button variant="secondary" onClick={prev} disabled={!canPrev || isExpired} className="flex-1">
+            <Button variant="secondary" onClick={prev} disabled={!canPrev || isExpired} className="flex-1 bg-gray-200 hover:bg-gray-300">
               <span className="inline-flex items-center gap-1">
                 <ChevronLeft className="w-4 h-4" /> Previous
               </span>
@@ -343,7 +343,7 @@ export default function QuestionsRunner({
                 </AlertDialogContent>
               </AlertDialog>
             ) : (
-              <Button onClick={next} disabled={!canNext || isExpired} className="flex-1 disabled:opacity-70">
+              <Button onClick={next} disabled={!canNext || isExpired} className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:opacity-70">
                 <span className="inline-flex items-center gap-1">
                   Next <ChevronRight className="w-4 h-4" />
                 </span>

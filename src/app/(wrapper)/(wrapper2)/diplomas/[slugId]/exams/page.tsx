@@ -5,6 +5,8 @@ import Link from "next/link";
 // import ArrowBack from "@/components/arrow-back";
 import HeaderBar from "@/components/header-bar";
 import ArrowBack from "@/components/arrow-back";
+import { GET as getExams } from "@/app/api/exams/route";
+
 
 type Params = { slugId: string };
 
@@ -29,9 +31,9 @@ export default async function ExamsPage({ params }: { params: Params }) {
     .map((c) => `${c.name}=${c.value}`)
     .join("; ");
 
-  const res = await fetch(`${baseUrl}/api/exams?subjectId=${subjectId}`, {
-    headers: { Cookie: cookieHeader },
-  });
+    const res = await fetch(`${baseUrl}/api/exams?subjectId=${subjectId}`, {
+      headers: { Cookie: cookieHeader },
+    });
 
   if (!res.ok) {
     return (

@@ -1,5 +1,4 @@
 // src/app/login/layout.tsx
-// import FeatureList from "../login/_components/features/FeatureList";
 import { FolderCode } from "lucide-react";
 import React from "react";
 import FeatureList from "./_components/features/FeatureList";
@@ -9,10 +8,17 @@ export default function LoginLayout({ children }: { children: React.ReactNode })
     <main className="flex flex-col md:flex-row min-h-screen">
 
       {/* العمود الشمال */}
-      <div className="flex-1 flex flex-col justify-between px-10 py-8 
-                bg-gradient-to-b from-[#F6FAFF] via-[#EEF5FF] to-[#E6F0FF] 
-                backdrop-blur-3xl">
-        <div className="flex-1 mx-auto flex flex-col py-8">
+      <div className="relative flex-1 flex flex-col justify-between px-10 py-8 overflow-hidden
+                bg-[#EFF6FFBF]
+                ">
+
+        {/* Ellipse تحت عالشمال */}
+        <div className="absolute -bottom-40 -left-24 w-[400px] h-[400px] rounded-full bg-[#50A2FF] blur-[200px] pointer-events-none" />
+
+        {/* Ellipse فوق عاليمين */}
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-[#50A2FF] blur-[200px] pointer-events-none" />
+
+        <div className="flex-1 mx-auto flex flex-col py-8 relative z-10">
           {/* هيدر */}
           <div className="flex items-center gap-2">
             <FolderCode className="w-10 h-10 text-blue-600" />
@@ -26,7 +32,6 @@ export default function LoginLayout({ children }: { children: React.ReactNode })
         </div>
       </div>
 
-
       {/* العمود اليمين (متغير) */}
       <div className="flex-1 flex flex-col p-6 sm:p-10 bg-white">
         <div className="flex-1 flex items-center justify-center">
@@ -38,17 +43,3 @@ export default function LoginLayout({ children }: { children: React.ReactNode })
     </main>
   );
 }
-
-
-{/* <div className="bg-yellow-500 mx-auto flex flex-col gap-12">
-          {/* هيدر */}
-// <div className="flex bg-blue-500 items-center gap-2">
-//   <FolderCode className="w-10 h-10 text-blue-600" />
-//   <h1 className="text-xl font-bold">Exam App</h1>
-// </div>
-
-{/* المميزات */ }
-// <div className="flex-1 flex items-center">
-//   <FeatureList />
-// </div>
-// </div>

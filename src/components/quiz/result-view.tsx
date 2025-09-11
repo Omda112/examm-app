@@ -146,7 +146,7 @@ export default function ResultsView({
               <Button
                 variant="secondary"
                 onClick={onRestart}
-                className="flex-1 inline-flex items-center justify-center gap-2"
+                className="flex-1 inline-flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-300"
               >
                 <RefreshCcw className="w-4 h-4" /> Restart
               </Button>
@@ -156,7 +156,7 @@ export default function ResultsView({
                     ? onExplore()
                     : window.scrollTo({ top: 0, behavior: "smooth" })
                 }
-                className="flex-1 inline-flex items-center justify-center gap-2"
+                className="flex-1 inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700"
               >
                 <FolderOpen className="w-4 h-4" /> Explore
               </Button>
