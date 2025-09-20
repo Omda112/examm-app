@@ -1,7 +1,7 @@
 "use client";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import DiplomaCard from "@/components/diplomas/diploma-card";
-import { useMemo } from "react";
+import { cache, useMemo } from "react";
 
 // دالة الفetch
 async function fetchDiplomas({
@@ -11,7 +11,8 @@ async function fetchDiplomas({
   pageParam?: number;
   limit?: number;
 }) {
-  const res = await fetch(`/api/subjects?page=${pageParam}&limit=${limit}`);
+  const res = await fetch(`https://exam-app-back-iota.vercel.app/diplomas?page=${pageParam}&limit=${limit}`,
+  );
   if (!res.ok) throw new Error("Failed to fetch diplomas");
   return res.json();
 }

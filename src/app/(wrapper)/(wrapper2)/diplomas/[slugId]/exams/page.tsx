@@ -31,9 +31,7 @@ export default async function ExamsPage({ params }: { params: Params }) {
     .map((c) => `${c.name}=${c.value}`)
     .join("; ");
 
-    const res = await fetch(`${baseUrl}/api/exams?subjectId=${subjectId}`, {
-      headers: { Cookie: cookieHeader },
-    });
+    const res = await fetch(`https://exam-app-back-iota.vercel.app/exams/${subjectId}`);
 
   if (!res.ok) {
     return (

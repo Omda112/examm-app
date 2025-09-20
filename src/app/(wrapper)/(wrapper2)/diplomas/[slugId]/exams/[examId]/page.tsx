@@ -26,7 +26,7 @@ export default async function ExamQuestionsPage({ params }: { params: Params }) 
   const token = await getServerToken();
   if (!token?.accessToken) return notFound();
 
-  const res = await fetch(`https://exam.elevateegy.com/api/v1/questions?exam=${examId}`, {
+  const res = await fetch(`https://exam-app-back-iota.vercel.app/questions?exam=${examId}`, {
     headers: { token: `${token.accessToken}` },
     cache: "no-store",
   });
