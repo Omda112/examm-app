@@ -7,18 +7,24 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbSeparator
+  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
 export default function SiteBreadcrumb() {
   const pathname = usePathname();
-  const parts = pathname.split("/").filter(Boolean); 
+  const parts = pathname.split("/").filter(Boolean);
 
   return (
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          {pathname === "/" ? (
+            <span className="capitalize text-blue-500 font-semibold text-lg [text-shadow:0_0_0.5px_#2B7FFF]">
+              Home
+            </span>
+          ) : (
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          )}
         </BreadcrumbItem>
 
         {parts.map((part, index) => {
@@ -26,29 +32,26 @@ export default function SiteBreadcrumb() {
           const isLast = index === parts.length - 1;
 
           return (
-            <>
+            <div key={href} className="flex items-center">
               <BreadcrumbSeparator>
                 <SlashIcon />
               </BreadcrumbSeparator>
               <BreadcrumbItem>
-    {isLast ? (
-  <span className="capitalize text-blue-500 font-semibold text-lg [text-shadow:0_0_0.5px_#2B7FFF]">
-    {part}
-  </span>
-) : (
-  <BreadcrumbLink href={href} className="capitalize">
-    {part}
-  </BreadcrumbLink>
-)}
-
-
-
-
+                {isLast ? (
+                  <span className="capitalize text-blue-500 font-semibold text-lg [text-shadow:0_0_0.5px_#2B7FFF]">
+                    {part}
+                  </span>
+                ) : (
+                  <BreadcrumbLink href={href} className="capitalize">
+                    {part}
+                  </BreadcrumbLink>
+                )}
               </BreadcrumbItem>
-            </>
+            </div>
           );
         })}
       </BreadcrumbList>
     </Breadcrumb>
   );
 }
+م
