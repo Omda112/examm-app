@@ -256,21 +256,21 @@ export default function QuestionsRunner({
   console.log(safeIndex);
   
   /* === شرط عرض الصورة === */
-  const questionMedia: Record<
-  number,
-  { src: string; caption: string }
-> = {
-  5: {
-    src: "/next_question.gif",
-    caption: "يلا عالسؤال اللي بعده 👉",
-  },
-  6: {
-    src: "/jerry_jerry.gif",
-    caption: "راحت عالسؤال اللي بعده برده... مبتتعلمش 😂",
-  },
-};
+//   const questionMedia: Record<
+//   number,
+//   { src: string; caption: string }
+// > = {
+//   5: {
+//     src: "/next_question.gif",
+//     caption: "يلا عالسؤال اللي بعده 👉",
+//   },
+//   6: {
+//     src: "/jerry_jerry.gif",
+//     caption: "راحت عالسؤال اللي بعده برده... مبتتعلمش 😂",
+//   },
+// };
 
-const media = questionMedia[safeIndex];
+// const media = questionMedia[safeIndex];
 
   return (
     <div className="mx-auto">
@@ -296,7 +296,7 @@ const media = questionMedia[safeIndex];
           </h2>
 
           {/* الصورة الخاصة بالـ UX/UI سؤال 3 */}
-        {media && (
+        {/* {media && (
   <div className="mb-4 text-center">
     <Image
       src={media.src}
@@ -309,7 +309,7 @@ const media = questionMedia[safeIndex];
     />
     <p className="mt-2 text-sm text-gray-700">{media.caption}</p>
   </div>
-)}
+)} */}
 
           <RadioGroup
             value={picked[q._id] ?? ""}

@@ -1,9 +1,10 @@
+// components/diplomas/diploma-cards-list.tsx
 "use client";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import DiplomaCard from "@/components/diplomas/diploma-card";
-import { cache, useMemo } from "react";
+import { useMemo, useEffect, useRef } from "react";
 
-// دالة الفetch
+// fetchDiplomas و slugify زي ما هم عندك…
 async function fetchDiplomas({
   pageParam = 1,
   limit = 6,
@@ -11,13 +12,13 @@ async function fetchDiplomas({
   pageParam?: number;
   limit?: number;
 }) {
-  const res = await fetch(`https://exam-app-back-iota.vercel.app/diplomas?page=${pageParam}&limit=${limit}`,
+  const res = await fetch(
+    `https://exam-app-back-iota.vercel.app/diplomas?page=${pageParam}&limit=${limit}`
   );
   if (!res.ok) throw new Error("Failed to fetch diplomas");
   return res.json();
 }
 
-// دالة slugify زي ما هي
 function slugify(s: string) {
   return s
     .toLowerCase()
@@ -35,47 +36,100 @@ export default function DiplomaCardsList() {
     isFetchingNextPage,
     status,
     error,
-  } = useInfiniteQuery<DiplomaPageResponse, Error>({
-    queryKey: ["diplomas"],
-    queryFn: ({ pageParam }) =>
-      fetchDiplomas({ pageParam: pageParam as number, limit: 6 }),
-    getNextPageParam: (lastPage: DiplomaPageResponse) => {
-      const { metadata } = lastPage;
-      if (metadata.currentPage < metadata.numberOfPages) {
-        return metadata.currentPage + 1;
-      }
-      return undefined;
-    },
-    initialPageParam: 1,
-  });
+  } = useInfiniteQuery({
+  queryKey: ["diplomas"],
+  queryFn: ({ pageParam }) =>
+    fetchDiplomas({ pageParam: pageParam as number, limit: 6 }),
+  getNextPageParam: (lastPage) => {
+    const { metadata } = lastPage;
+    return metadata.currentPage < metadata.numberOfPages
+      ? metadata.currentPage + 1
+      : undefined;
+  },
+  initialPageParam: 1,
+
+  staleTime: Infinity,
+  refetchOnWindowFocus: false,
+  refetchOnReconnect: false,
+  refetchOnMount: false,
+
+  gcTime: 30 * 24 * 60 * 60 * 1000, // 30 يوم
+
+  retry: 1,
+});
+
 
   const diplomas = useMemo(
     () => data?.pages.flatMap((page) => page.subjects) ?? [],
     [data]
   );
 
+  // ---- Infinite scroll via IntersectionObserver ----
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+  // قفل بسيط يمنع التريجر المتكرر أثناء الفetch
+  const lockRef = useRef(false);
+
+  useEffect(() => {
+    if (!hasNextPage) return; // مفيش صفحات تانية
+    const el = sentinelRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const first = entries[0];
+        if (!first.isIntersecting) return;
+
+        // امنع التكرار لو فيه طلب شغال أو اللّوك مقفول
+        if (isFetchingNextPage || lockRef.current) return;
+
+        lockRef.current = true; // اقفل لحد ما يبدأ الفetch
+        fetchNextPage().finally(() => {
+          // افتح القفل بعد استقرار الـtask في الماكروتاستك التالي
+          // لتفادي تكرار التريجر على نفس الإطار
+          setTimeout(() => {
+            lockRef.current = false;
+          }, 0);
+        });
+      },
+      {
+        root: null,
+        // تحميل تحضيري قبل الوصول للآخر فعليًا (يحسن الإحساس بالسرعة)
+        rootMargin: "600px 0px",
+        threshold: 0,
+      }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+
   if (status === "pending") return <div>جاري التحميل...</div>;
-  if (status === "error")
-    return <div>حدث خطأ: {(error as Error).message}</div>;
+  if (status === "error") return <div>حدث خطأ: {error.message}</div>;
 
   return (
     <>
       {diplomas.map((d: Diploma) => {
         const slug = slugify(d.name);
-        const href = `/diplomas/${slug}-${d._id}/exams`;
+        const href = `/${slug}-${d._id}/exams`;
         return (
           <DiplomaCard key={d._id} title={d.name} img={d.icon} href={href} />
         );
       })}
 
+      {/* الـsentinel: عنصر غير مرئي في آخر الليست */}
       {hasNextPage && (
-        <button
-          className="mt-6 px-4 py-2 bg-blue-600 text-white rounded"
-          onClick={() => fetchNextPage()}
-          disabled={isFetchingNextPage}
-        >
-          {isFetchingNextPage ? "جاري التحميل..." : "تحميل المزيد"}
-        </button>
+        <div
+          ref={sentinelRef}
+          aria-hidden="true"
+          className="h-1 w-full"
+        />
+      )}
+
+      {/* حالة تحميل الصفحة التالية */}
+      {isFetchingNextPage && (
+        <div className="mt-6 text-center text-sm text-gray-500">
+          جاري التحميل...
+        </div>
       )}
     </>
   );

@@ -3,7 +3,7 @@
 import type { ReactNode } from "react";
 import "./globals.css";
 // import { Toaster } from "@/components/ui/sonner";
-import TokenInitializer from "@/components/token-initializer";
+// import TokenInitializer from "@/components/token-initializer";
 import { Inter } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
 import { Toaster } from "sonner";
@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={`${GeistMono?.variable ?? ""} ${inter?.variable ?? ""} font-sans`}>
-        <TokenInitializer />  
+        {/* <TokenInitializer />   */}
          <QueryProvider>
           {children}
         </QueryProvider>

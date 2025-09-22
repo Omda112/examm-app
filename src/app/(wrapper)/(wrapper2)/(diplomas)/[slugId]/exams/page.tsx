@@ -70,7 +70,7 @@ export default async function ExamsPage({ params }: { params: Params }) {
             {exams.map((ex) => (
               <li key={ex._id}>
                 <Link
-                  href={`/diplomas/${slugId}/exams/${ex._id}`}
+                  href={`/${slugId}/exams/${ex._id}`}
                   className={[
                     "block rounded-md border transition",
                     "bg-[#EEF5FF] border-[#E5EEFF]",

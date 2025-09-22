@@ -31,13 +31,19 @@ export default function SiteBreadcrumb() {
                 <SlashIcon />
               </BreadcrumbSeparator>
               <BreadcrumbItem>
-                {isLast ? (
-                  <span className="capitalize">{part}</span>
-                ) : (
-                  <BreadcrumbLink href={href} className="capitalize">
-                    {part}
-                  </BreadcrumbLink>
-                )}
+    {isLast ? (
+  <span className="capitalize text-blue-500 font-semibold text-lg [text-shadow:0_0_0.5px_#2B7FFF]">
+    {part}
+  </span>
+) : (
+  <BreadcrumbLink href={href} className="capitalize">
+    {part}
+  </BreadcrumbLink>
+)}
+
+
+
+
               </BreadcrumbItem>
             </>
           );

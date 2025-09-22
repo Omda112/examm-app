@@ -11,11 +11,12 @@ type Props = {
 export default function DiplomaCard({ title, img, href }: Props) {
   return (
     <Link
-      href={href}
-      prefetch
-      className="group relative block h-[448px] w-full overflow-hidden shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-      aria-label={`اذهب إلى امتحانات ${title}`}
-    >
+  href={href}
+  prefetch
+  className="group rounded-2xl relative block h-[448px] w-full overflow-hidden shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+  aria-label={`اذهب إلى امتحانات ${title}`}
+>
+
       <Image
         src={img}
         alt={title}
@@ -25,9 +26,9 @@ export default function DiplomaCard({ title, img, href }: Props) {
         sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
       />
 
-      <div className="pointer-events-none absolute inset-x-3 bottom-3">
+      <div className="pointer-events-none absolute inset-x-0 bottom-3">
         <div className="bg-[#155DFC]/50 backdrop-blur-[6] px-4 py-3">
-          <p className="text-white text-xl font-semibold tracking-tight line-clamp-2">
+          <p className="text-center text-white text-xl font-semibold tracking-tight line-clamp-2">
             {title}
           </p>
         </div>

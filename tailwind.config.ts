@@ -9,6 +9,19 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		 keyframes: {
+        glow: {
+          '0%, 100%': {
+            textShadow: '0 0 5px #2B7FFF, 0 0 10px #2B7FFF',
+          },
+          '50%': {
+            textShadow: '0 0 2px #2B7FFF, 0 0 4px #2B7FFF',
+          },
+        },
+      },
+	    animation: {
+        glow: 'glow 2s ease-in-out infinite',
+      },
 		borderRadius: {
 			DEFAULT: "0px",  
 			md: "0px",
