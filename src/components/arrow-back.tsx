@@ -1,12 +1,8 @@
 "use client";
 
 import { ChevronLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
-// import { ArrowLeft } from "lucide-react";
 
 export default function ArrowBack() {
-  const router = useRouter();
-
   return (
     <button
       type="button"

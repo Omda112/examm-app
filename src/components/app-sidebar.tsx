@@ -21,6 +21,7 @@ import {
   PanelLeftOpen,
 } from "lucide-react";
 
+// Sidebar menu items
 const items = [
   { title: "Diplomas", href: "/", icon: GraduationCap },
   { title: "Account Settings", href: "/account", icon: UserRound },
@@ -29,13 +30,17 @@ const items = [
 export default function AppSidebar() {
   const pathname = usePathname();
   const { data: session } = useSession();
-  const { open, toggleSidebar } = useSidebar(); 
+  const { open, toggleSidebar } = useSidebar();
 
   return (
     <Sidebar collapsible="icon" className="h-vh">
       <SidebarContent className="flex h-full flex-col bg-blue-50">
-        {/* Header: اللوجو + زرار التوجّل */}
-        <div className={`flex items-center justify-between ${open ? "p-5" : "p-4"}`}>
+        {/* Header: Logo + toggle button */}
+        <div
+          className={`flex items-center justify-between ${
+            open ? "p-5" : "p-4"
+          }`}
+        >
           <div className="flex items-center gap-2">
             <Image
               src="/Final-Logo-1.svg"
@@ -60,7 +65,7 @@ export default function AppSidebar() {
           </button>
         </div>
 
-        {/* عنوان التطبيق */}
+        {/* App title */}
         <div className={`${open ? "px-5 pb-4" : "px-4 pb-3"}`}>
           <div className="flex items-center gap-2" title="Exam App">
             <FolderCode className="h-7 w-7 text-blue-700" />
@@ -72,7 +77,7 @@ export default function AppSidebar() {
           </div>
         </div>
 
-        {/* القائمة */}
+        {/* Sidebar menu */}
         <SidebarGroupContent className="px-2">
           <SidebarMenu className="space-y-2">
             {items.map(({ title, href, icon: Icon }) => {
@@ -88,7 +93,7 @@ export default function AppSidebar() {
                       className={[
                         "flex items-center rounded-none transition text-sm border",
                         open
-                          ? "gap-3 px-3 py-6" 
+                          ? "gap-3 px-3 py-6"
                           : "gap-0 px-3 py-6 justify-center",
                         active
                           ? "!bg-blue-100 !text-blue-600 border border-[#2B7FFF]"
@@ -104,9 +109,10 @@ export default function AppSidebar() {
                             : "h-6 w-6 text-gray-500"
                         }
                       />
-                      {open && <span className="font-medium truncate">{title}</span>}
+                      {open && (
+                        <span className="font-medium truncate">{title}</span>
+                      )}
                     </Link>
-
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               );
@@ -114,7 +120,7 @@ export default function AppSidebar() {
           </SidebarMenu>
         </SidebarGroupContent>
 
-        {/* معلومات المستخدم */}
+        {/* User info */}
         <div className="mt-auto px-3 pb-4">
           <div className="flex items-center gap-3 rounded-md p-2">
             <div className="min-w-0">

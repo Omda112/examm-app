@@ -6,17 +6,27 @@ type FeatureItemProps = {
   description: string;
 };
 
-export default function FeatureItem({ icon: Icon, title, description }: FeatureItemProps) {
+export default function FeatureItem({
+  icon: Icon,
+  title,
+  description,
+}: FeatureItemProps) {
   return (
     <div className="flex gap-4 items-start">
-      {/* أيقونة جوّه دائرة bordered */}
+      {/* Icon container */}
       <div className="flex items-center justify-center p-3 border border-blue-600">
+        {/* Render dynamic icon */}
         <Icon size={24} className="text-[#155DFC]" />
       </div>
 
+      {/* Text content */}
       <div>
-        <h3 className="text-lg text-[#155DFC] font-sans font-semibold">{title}</h3>
-        <p className="Gray/gray-700 text-base font-sans leading-snug max-w-2xs">{description}</p>
+        <h3 className="text-lg text-[#155DFC] font-sans font-semibold">
+          {title}
+        </h3>
+        <p className="Gray/gray-700 text-base font-sans leading-snug max-w-2xs">
+          {description}
+        </p>
       </div>
     </div>
   );

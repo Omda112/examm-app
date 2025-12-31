@@ -1,11 +1,9 @@
-
 import { Suspense } from "react";
-import Component from "../_components/login-form";
+import Component from "./_components/login-form";
 export default function Page() {
-
-  return(
+  return (
     <Suspense fallback={null}>
-     <Component />;
+      <Component />;
     </Suspense>
-  )
+  );
 }

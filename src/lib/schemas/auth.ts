@@ -1,29 +1,34 @@
 // lib/schemas/auth.ts
-import { z } from "zod"
+import { z } from "zod";
 
 export const loginSchema = z.object({
-  email: z.email({ message: "Please enter a valid email." }).nonempty( "Email is required."),
+  email: z
+    .email({ message: "Please enter a valid email." })
+    .nonempty("Email is required."),
   password: z.string("Password is required.").nonempty("Password is required."),
-})
+});
 
-export type LoginValues = z.infer<typeof loginSchema>
-
+export type LoginValues = z.infer<typeof loginSchema>;
 
 export const forgotPasswordSchema = z.object({
-    email: z.email({ message: "Please enter a valid email." }).nonempty( "Email is required."),
-  })
-  
-export type ForgotPasswordValues = z.infer<typeof forgotPasswordSchema>
+  email: z
+    .email({ message: "Please enter a valid email." })
+    .nonempty("Email is required."),
+});
 
+export type ForgotPasswordValues = z.infer<typeof forgotPasswordSchema>;
 
 const PASSWORD_REGEX =
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-const EGY_LOCAL_PHONE_REGEX = /^01[0125][0-9]{8}$/
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+const EGY_LOCAL_PHONE_REGEX = /^01[0125][0-9]{8}$/;
 export const registerSchema = z
-.object({
+  .object({
     firstName: z.string().trim().min(1, "First name is required."),
     lastName: z.string().trim().min(1, "Last name is required."),
-    username: z.string().trim().min(3, "Username must be at least 3 characters."),
+    username: z
+      .string()
+      .trim()
+      .min(3, "Username must be at least 3 characters."),
     email: z
       .string()
       .trim()
@@ -37,7 +42,10 @@ export const registerSchema = z
     phone: z
       .string()
       .trim()
-      .regex(EGY_LOCAL_PHONE_REGEX, "Enter a valid Egyptian mobile: e.g. 010xxxxxxxx"),
+      .regex(
+        EGY_LOCAL_PHONE_REGEX,
+        "Enter a valid Egyptian mobile: e.g. 010xxxxxxxx"
+      ),
 
     password: z
       .string()
@@ -51,7 +59,18 @@ export const registerSchema = z
   .refine((d) => d.password === d.confirmPassword, {
     path: ["confirmPassword"],
     message: "Passwords do not match.",
+  });
+
+export type RegisterValues = z.infer<typeof registerSchema>;
+
+export const resetPasswordSchema = z
+  .object({
+    newPassword: z.string().min(6, "Password must be at least 6 characters"),
+    rePassword: z.string().min(6, "Please confirm your password"),
   })
+  .refine((data) => data.newPassword === data.rePassword, {
+    message: "Passwords do not match",
+    path: ["rePassword"],
+  });
 
-
-export type RegisterValues = z.infer<typeof registerSchema>
+export type ResetPasswordValues = z.infer<typeof resetPasswordSchema>;
